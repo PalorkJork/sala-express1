@@ -5,8 +5,9 @@ const path = require("path");
 const { Product, ProductImage, Category } = require("../../models");
 const { Op, fn, col, where } = require("sequelize");
 
+// const { storage, cloudinary } = require("../storage/storage");
 const { storage, cloudinary } = require("../storage/storage");
-const multer = require("multer");
+const multer = require('multer');
 const upload = multer({ storage });
 
 const router = app.Router();
@@ -142,7 +143,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Image upload
-router.post("/:id/upload", upload.single("file"), async (req, res) => {
+router.post("/:id/upload", upload.single('file'), async (req, res) => {
   try {
     const file = req.file;
     const productId = req.params.id;
@@ -154,8 +155,6 @@ router.post("/:id/upload", upload.single("file"), async (req, res) => {
         message: `Product id=${productId} not found`,
       });
     }
-
-    console.log("File", file);
 
     const savedImage = await ProductImage.create({
       productId,
